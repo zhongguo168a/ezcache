@@ -5,7 +5,9 @@ func NewRequestContextDefault() (r *RequestContext) {
 }
 
 func NewRequestContext(ctx IContext) (r *RequestContext) {
-	r = &RequestContext{}
+	r = &RequestContext{
+		request: NewCache(),
+	}
 	r.IContext = ctx
 	return
 }
