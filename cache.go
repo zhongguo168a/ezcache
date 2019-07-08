@@ -61,6 +61,18 @@ func (c *Cache) Get(key string) (val interface{}, ok bool) {
 	return c.data.Load(key)
 }
 
+// 从cache中获取对象, 如果存在, 通过has方法进行处理; 如果不存在, 通过create方法创建, 接着调用has方法
+// 该方法没有返回值
+func (c *Cache) GetOrNew(key string, has func(ival interface{}), create func() interface{}) {
+	ival, ok := c.Get(key)
+	if ok == false {
+		ival = create()
+		c.Set(key, ival)
+	}
+	has(ival)
+	return
+}
+
 func NewContext() *Context {
 	return &Context{}
 }
