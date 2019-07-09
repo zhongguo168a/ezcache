@@ -3,19 +3,19 @@ package ezcache
 import "context"
 
 func NewRequestContextDefault() (r *RequestContext) {
-	return NewRequestContext(NewContext(context.Background()))
+	return NewRequestContext(context.Background())
 }
 
-func NewRequestContext(ctx IContext) (r *RequestContext) {
+func NewRequestContext(ctx context.Context) (r *RequestContext) {
 	r = &RequestContext{
 		request: NewCache(),
 	}
-	r.IContext = ctx
+	r.Context = *NewContext(ctx)
 	return
 }
 
 type RequestContext struct {
-	IContext
+	Context
 
 	request *Cache
 }
