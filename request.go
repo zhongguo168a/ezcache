@@ -1,7 +1,9 @@
 package ezcache
 
+import "context"
+
 func NewRequestContextDefault() (r *RequestContext) {
-	return NewRequestContext(NewContext())
+	return NewRequestContext(NewContext(context.Background()))
 }
 
 func NewRequestContext(ctx IContext) (r *RequestContext) {

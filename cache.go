@@ -73,8 +73,10 @@ func (c *Cache) GetOrNew(key string, has func(ival interface{}), create func() i
 	return
 }
 
-func NewContext() *Context {
-	return &Context{}
+func NewContext(ctx context.Context) *Context {
+	return &Context{
+		Context: ctx,
+	}
 }
 
 type Context struct {
