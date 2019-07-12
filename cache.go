@@ -67,6 +67,9 @@ func (c *Cache) GetOrNew(key string, has func(ival interface{}), create func() i
 	ival, ok := c.Get(key)
 	if ok == false {
 		ival = create()
+		if ival == nil {
+			return
+		}
 		c.Set(key, ival)
 	}
 	has(ival)
